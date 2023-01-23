@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SectionController;
+use App\Http\Controllers\Vendor\VendorController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -57,7 +58,17 @@ Route::prefix('admin')->name('admin.')->group(function() {
         // Profile - edit profile
         Route::get('profile', [AdminController::class, 'editProfile'])->name('editProfile');
         Route::put('profile', [AdminController::class, 'updateProfile'])->name('updateProfile');
+    });
+});
 
+Route::prefix('vendor')->name('vendor.')->group(function() {
+    Route::get('register', [VendorController::class, 'register'])->name('register');
+    Route::post('register', [VendorController::class, 'storeRegister'])->name('storeRegister');
+    Route::get('login', [VendorController::class, 'login'])->name('login');
+    Route::post('login', [VendorController::class, 'postLogin'])->name('postLogin');
 
+    Route::middleware('vendor')->group(function () {
+        Route::get('dashboard', [VendorController::class, 'dashboard'])->name('dashboard');
+        Route::get('logout', [VendorController::class, 'logout'])->name('logout');
     });
 });
