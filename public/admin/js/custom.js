@@ -9,4 +9,7 @@ $(document).ready(() => {
             reader.readAsDataURL(image);
         }
     });
+
+    // initiate data-table
+    $('#data-table').DataTable();
 });

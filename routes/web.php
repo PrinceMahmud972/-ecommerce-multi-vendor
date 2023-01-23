@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\SectionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -32,12 +34,30 @@ Route::prefix('admin')->name('admin.')->group(function() {
 
         Route::get('logout', [AdminController::class, 'logout'])->name('logout');
 
-        // Profile Section - change password
+        // Section
+        Route::get('section', [SectionController::class, 'index'])->name('section.index');
+        Route::get('section/create', [SectionController::class, 'create'])->name('section.create');
+        Route::post('section', [SectionController::class, 'store'])->name('section.store');
+        Route::get('section/{section}/edit', [SectionController::class, 'edit'])->name('section.edit');
+        Route::put('section/{section}', [SectionController::class, 'update'])->name('section.update');
+        Route::delete('section/{section}', [SectionController::class, 'destroy'])->name('section.destroy');
+
+        // Category
+        Route::get('category', [CategoryController::class, 'index'])->name('category.index');
+        Route::get('category/create', [CategoryController::class, 'create'])->name('category.create');
+        Route::post('category', [CategoryController::class, 'store'])->name('category.store');
+        Route::get('category/{category}/edit', [CategoryController::class, 'edit'])->name('category.edit');
+        Route::put('category/{category}', [CategoryController::class, 'update'])->name('category.update');
+        Route::delete('category/{category}', [CategoryController::class, 'destroy'])->name('category.destroy');
+
+        // Profile - change password
         Route::get('changePassword', [AdminController::class, 'changePassword'])->name('changePassword');
         Route::put('changePassword', [AdminController::class, 'updateChangePassword'])->name('updateChangePassword');
 
-        // Profile Section - edit profile
+        // Profile - edit profile
         Route::get('profile', [AdminController::class, 'editProfile'])->name('editProfile');
         Route::put('profile', [AdminController::class, 'updateProfile'])->name('updateProfile');
+
+
     });
 });

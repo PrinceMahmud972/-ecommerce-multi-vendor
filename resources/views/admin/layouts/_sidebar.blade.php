@@ -95,6 +95,32 @@
         </div>
       </li>
       <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#section" aria-expanded="false" aria-controls="section">
+          <i class="icon-pie-graph menu-icon"></i>
+          <span class="menu-title">Section</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="section">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.section.index') }}"> All Sections </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.section.create') }}"> Create Section </a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#category" aria-expanded="false" aria-controls="category">
+          <i class="icon-grid menu-icon"></i>
+          <span class="menu-title">Category</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="category">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.category.index') }}"> All Categories </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.category.create') }}"> Create Category </a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#profile" aria-expanded="false" aria-controls="profile">
           <i class="icon-head menu-icon"></i>
           <span class="menu-title">Profile</span>
