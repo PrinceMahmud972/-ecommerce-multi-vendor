@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SectionController;
+use App\Http\Controllers\Admin\VendorController as AdminVendorController;
 use App\Http\Controllers\Vendor\VendorController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -51,13 +52,18 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::put('category/{category}', [CategoryController::class, 'update'])->name('category.update');
         Route::delete('category/{category}', [CategoryController::class, 'destroy'])->name('category.destroy');
 
+        // Vendor
+        Route::get('vendor', [AdminVendorController::class, 'index'])->name('vendor.index');
+        Route::delete('vendor/{vendor}', [AdminVendorController::class, 'destroy'])->name('vendor.destroy');
+        Route::put('vendor/{vendor}/enable', [AdminVendorController::class, 'enable'])->name('vendor.enable');
+        Route::put('vendor/{vendor}/disable', [AdminVendorController::class, 'disable'])->name('vendor.disable');
+
         // Profile - change password
         Route::get('changePassword', [AdminController::class, 'changePassword'])->name('changePassword');
         Route::put('changePassword', [AdminController::class, 'updateChangePassword'])->name('updateChangePassword');
-
-        // Profile - edit profile
         Route::get('profile', [AdminController::class, 'editProfile'])->name('editProfile');
         Route::put('profile', [AdminController::class, 'updateProfile'])->name('updateProfile');
+
     });
 });
 

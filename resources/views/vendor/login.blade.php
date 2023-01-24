@@ -18,7 +18,12 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-5">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
+                                    <div class="card-header">
+                                        <h3 class="text-center font-weight-light my-4">Login</h3>
+                                        @error('login')
+                                            <span class="alert alert-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                     <div class="card-body">
                                         <form action="{{ route('vendor.postLogin') }}" method="POST">
                                             @csrf
@@ -39,12 +44,10 @@
                                                 <input class="btn btn-primary" type="submit" value="Login">
                                             </div>
                                         </form>
-                                        @error('login')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
+                                        
                                     </div>
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="register.html">Need an account? Sign up!</a></div>
+                                        <div class="small"><a href="{{ route('vendor.register') }}">Need an account? Sign up!</a></div>
                                     </div>
                                 </div>
                             </div>

@@ -17,8 +17,8 @@
                                 <table id="data-table" class="table display dataTable">
                                     <thead>
                                         <tr>
-                                            <td>Title</td>
                                             <td>Image</td>
+                                            <td>Title</td>
                                             <td>Action</td>
                                         </tr>
                                     </thead>

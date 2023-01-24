@@ -6,7 +6,7 @@
           <span class="menu-title">Dashboard</span>
         </a>
       </li>
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
           <i class="icon-layout menu-icon"></i>
           <span class="menu-title">UI Elements</span>
@@ -93,7 +93,7 @@
             <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
           </ul>
         </div>
-      </li>
+      </li> --}}
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#section" aria-expanded="false" aria-controls="section">
           <i class="icon-pie-graph menu-icon"></i>
@@ -120,6 +120,20 @@
           </ul>
         </div>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#vendor" aria-expanded="false" aria-controls="vendor">
+          <i class="mdi mdi-account-star menu-icon"></i>
+          <span class="menu-title">Vendor</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="vendor">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"><a class="nav-link" href="{{ route('admin.vendor.index') }}">Vendor Lists</a></li>
+          </ul>
+        </div>
+      </li>
+
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#profile" aria-expanded="false" aria-controls="profile">
           <i class="icon-head menu-icon"></i>

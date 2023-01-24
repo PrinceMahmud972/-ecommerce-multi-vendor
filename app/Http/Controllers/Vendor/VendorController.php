@@ -39,7 +39,7 @@ class VendorController extends Controller
         $vendor->last_name = $request->last_name;
         $vendor->mobile = $request->mobile;
         $vendor->email = $request->email;
-        $vendor->password = Hash::make($request->username);
+        $vendor->password = Hash::make($request->password);
         $vendor->profile_image = 'default_image.jpg';
         
         $vendor->save();
@@ -58,6 +58,12 @@ class VendorController extends Controller
         ]);
 
         if(Auth::guard('vendor')->attempt($creds)){
+            if(!Auth::guard('vendor')->user()->status) {
+                Auth::guard('vendor')->logout();
+                return redirect()->route('vendor.login')->withErrors([
+                    'login' => 'Your account has not been activated yet.'
+                ]);
+            }
             return redirect()->route('vendor.dashboard');
         }
         
@@ -67,7 +73,6 @@ class VendorController extends Controller
     }
 
     public function logout() {
-        Session::flush();
         Auth::guard('vendor')->logout();
         return redirect()->route('vendor.login');
     }
