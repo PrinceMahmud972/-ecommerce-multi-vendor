@@ -70,5 +70,11 @@ Route::prefix('vendor')->name('vendor.')->group(function() {
     Route::middleware('vendor')->group(function () {
         Route::get('dashboard', [VendorController::class, 'dashboard'])->name('dashboard');
         Route::get('logout', [VendorController::class, 'logout'])->name('logout');
+
+        Route::get('changePassword', [VendorController::class, 'changePassword'])->name('changePassword');
+        Route::put('changePassword', [VendorController::class, 'updateChangePassword'])->name('updateChangePassword');
+        Route::get('profile', [VendorController::class, 'editProfile'])->name('editProfile');
+        Route::put('profile', [VendorController::class, 'updateProfile'])->name('updateProfile');
+
     });
 });

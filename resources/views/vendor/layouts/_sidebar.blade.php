@@ -19,6 +19,7 @@
                         <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
                     </nav>
                 </div>
+
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                     <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                     Pages
@@ -48,6 +49,18 @@
                                 <a class="nav-link" href="500.html">500 Page</a>
                             </nav>
                         </div>
+                    </nav>
+                </div>
+
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseProfile" aria-expanded="false" aria-controls="collapseProfile">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                    Profile
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseProfile" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="{{ route('vendor.editProfile') }}">Edit Profile</a>
+                        <a class="nav-link" href="{{ route('vendor.changePassword') }}">Change Password</a>
                     </nav>
                 </div>
                 <div class="sb-sidenav-menu-heading">Addons</div>

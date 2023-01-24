@@ -24,3 +24,25 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
+
+// $('#formImage').change(function() {
+//     const image = this.files[0];
+//     if(image) {
+//         let reader = new FileReader();
+//         reader.onload = function(event) {
+//             $('#previewImage').attr('src', event.target.result);
+//         }
+//         reader.readAsDataURL(image);
+//     }
+// });
+
+document.getElementById('formImage').addEventListener("change", function () {
+    const image = this.files[0];
+    if(image) {
+        let reader = new FileReader();
+        reader.onload = function(event) {
+            document.getElementById('previewImage').src = event.target.result;
+        }
+        reader.readAsDataURL(image);
+    }
+});
