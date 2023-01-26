@@ -46,3 +46,44 @@ document.getElementById('formImage').addEventListener("change", function () {
         reader.readAsDataURL(image);
     }
 });
+
+$(document).ready(function() {
+    
+    const shopName = $('#inputShopName');
+    shopName.on('input', function() {
+        let shopSlug = $('#inputShopSlug');
+        let slug = convertToSlug(shopName.val());
+        shopSlug.val(slug);
+        if(slug){
+            $.ajax({
+                type:"GET",
+                url: "/vendor/shop/verifySlug?slug=" + slug,
+                dataType: "json",
+                success: function(data) {
+                    if(data.success) {
+                        shopSlug.removeClass('border-danger');
+                        shopSlug.addClass('border-success');
+                    } else {
+                        shopSlug.removeClass('border-success');
+                        shopSlug.addClass('border-danger');
+                        $('#slugError').text('The slug already Exists');
+                    }
+                }
+            });
+        }
+        if(slug == "") {
+            shopSlug.removeClass('border-success');
+            shopSlug.removeClass('border-danger');
+        }
+    });
+
+
+
+
+
+    function convertToSlug(Text) {
+        return Text.toLowerCase()
+                   .replace(/[^\w ]+/g, '')
+                   .replace(/ +/g, '-');
+    }
+});

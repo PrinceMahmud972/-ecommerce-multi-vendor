@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\Admin\VendorController as AdminVendorController;
+use App\Http\Controllers\Vendor\ShopController;
 use App\Http\Controllers\Vendor\VendorController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -77,10 +78,16 @@ Route::prefix('vendor')->name('vendor.')->group(function() {
         Route::get('dashboard', [VendorController::class, 'dashboard'])->name('dashboard');
         Route::get('logout', [VendorController::class, 'logout'])->name('logout');
 
+        // Profile
         Route::get('changePassword', [VendorController::class, 'changePassword'])->name('changePassword');
         Route::put('changePassword', [VendorController::class, 'updateChangePassword'])->name('updateChangePassword');
         Route::get('profile', [VendorController::class, 'editProfile'])->name('editProfile');
         Route::put('profile', [VendorController::class, 'updateProfile'])->name('updateProfile');
 
+        // Shop
+        Route::get('myShop', [ShopController::class, 'home'])->name('shop.home');
+        Route::get('myShop/create', [ShopController::class, 'create'])->name('shop.create');
+        Route::post('myShop', [ShopController::class, 'store'])->name('shop.store');
+        Route::get('shop/verifySlug', [ShopController::class, 'verifySlug'])->name('shop.verifySlug');
     });
 });
