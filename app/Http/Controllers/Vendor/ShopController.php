@@ -59,18 +59,68 @@ class ShopController extends Controller
         return back()->withErrors([
             'slug' => 'Slug already exits!'
         ]);
-    } 
+    }
+
+    public function edit() {
+        $shop = Shop::where('vendor_id', Auth::guard('vendor')->id())->first();
+        if($shop){
+            return view('vendor.shop.edit', compact('shop'));
+        }
+        return redirect()->route('vendor.shop.home');
+    }
+
+    public function update(Request $request) {
+        $shop = Shop::where('vendor_id', Auth::guard('vendor')->id())->first();
+        $request->validate([
+            'name' => 'required|string|max:100',
+            'slug' => 'required|string|max:100|unique:shops,slug,' . $shop->id,
+            'trade_license_number' => 'required|string|numeric',
+            'website' => 'required|string|max:100',
+            'tin_number' => 'nullable|string|numeric',
+            'bin_number' => 'nullable|string|numeric',
+        ]);
+
+        $shop->name = $request->name;
+        $shop->slug = $request->slug;
+        $shop->trade_license_number = $request->trade_license_number;
+        $shop->website = $request->website;
+        $shop->tin_number = $request->tin_number;
+        $shop->bin_number = $request->bin_number;
+
+        if($request->profile) {
+            $request->validate([
+                'profile' => 'image|mimes:png,jpg,jpeg|max:2048'
+            ]);
+            $this->deleteImage($shop->profile);
+            $shop->profile = $this->uploadImage($request->profile);
+        }
+
+        if($request->banner) {
+            $request->validate([
+                'banner' => 'image|mimes:png,jpg,jpeg|max:2048'
+            ]);
+            $this->deleteImage($shop->banner);
+            $shop->banner = $this->uploadImage($request->banner);
+        }
+
+        $shop->save();
+
+        return redirect()->route('vendor.shop.home');
+    }
 
     public function verifySlug(Request $request) {
         $validator = Validator::make($request->all(), ['slug' => 'required|string']);
         if($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
-        $slug = Shop::where('slug', $request->slug)->first();
+        $shop = Shop::where('slug', $request->slug)->first();
         
-        if(!$slug) {
+        if(!$shop) {
             return response()->json(['success' => true]);
         } else {
+            if(($request->slug == $shop->slug) && ($shop->vendor_id == Auth::guard('vendor')->id())) {
+                return response()->json(['success' => true]);
+            }
             return response()->json(['success' => false]); 
         }
     }

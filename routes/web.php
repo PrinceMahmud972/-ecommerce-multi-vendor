@@ -88,6 +88,8 @@ Route::prefix('vendor')->name('vendor.')->group(function() {
         Route::get('myShop', [ShopController::class, 'home'])->name('shop.home');
         Route::get('myShop/create', [ShopController::class, 'create'])->name('shop.create');
         Route::post('myShop', [ShopController::class, 'store'])->name('shop.store');
-        Route::get('shop/verifySlug', [ShopController::class, 'verifySlug'])->name('shop.verifySlug');
+        Route::get('myShop/verifySlug', [ShopController::class, 'verifySlug'])->name('shop.verifySlug');
+        Route::get('myShop/edit', [ShopController::class, 'edit'])->name('shop.edit');
+        Route::put('myShop', [ShopController::class, 'update'])->name('shop.update');
     });
 });

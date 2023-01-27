@@ -4,26 +4,26 @@
 
 <div class="container-fluid px-4">
     <h1 class="mt-4">My Shop</h1>
-    <div class="row justify-content-center">
-        @if (!$shop)
-            <h3>You Don't have a Shop. <a href="{{ route('vendor.shop.create') }}" class="btn btn-primary btn-lg">Create Now</a></h3>
-        @endif
-    </div>
+    @if (!$shop)
+      <div class="row justify-content-center">
+        <h3>You Don't have a Shop. <a href="{{ route('vendor.shop.create') }}" class="btn btn-primary btn-lg">Create Now</a></h3>
+      </div>
+    @else
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col col-lg-12 col-xl-12">
           <div class="card">
             <div class="rounded-top text-white d-flex flex-row" style="background-image:url({{ url('vendor/images/shops/'.$shop->banner) }}); background-color: #000; height:200px; box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.3)">
               <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
+                <img src="{{ url('vendor/images/shops/'.$shop->profile) }}"
                   alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
                   style="width: 150px; z-index: 1">
-                <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
+                <a href="{{ route('vendor.shop.edit') }}" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
                   style="z-index: 1;">
                   Edit profile
-                </button>
+                </a>
               </div>
-              <div class="ms-3" style="margin-top: 130px;">
-                <h5>{{ $shop->name }}</h5>
+              <div class="ms-3" style="margin-top: 100px;">
+                <h3>{{ $shop->name }}</h3>
                 <p>{{ '@'.$shop->slug }}</p>
               </div>
             </div>
@@ -79,7 +79,8 @@
             </div>
           </div>
         </div>
-      </div>
+    </div>
+    @endif
 </div>
 
 @endsection

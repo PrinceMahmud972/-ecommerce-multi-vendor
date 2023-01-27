@@ -24,6 +24,16 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
+// document.getElementById('formImage').addEventListener("change", function () {
+//     const image = this.files[0];
+//     if(image) {
+//         let reader = new FileReader();
+//         reader.onload = function(event) {
+//             document.getElementById('previewImage').src = event.target.result;
+//         }
+//         reader.readAsDataURL(image);
+//     }
+// });
 
 // $('#formImage').change(function() {
 //     const image = this.files[0];
@@ -36,16 +46,16 @@ window.addEventListener('DOMContentLoaded', event => {
 //     }
 // });
 
-document.getElementById('formImage').addEventListener("change", function () {
-    const image = this.files[0];
+function imagePreview(formImage, previewImage) {
+    const image = $(formImage).prop('files')[0];
     if(image) {
         let reader = new FileReader();
         reader.onload = function(event) {
-            document.getElementById('previewImage').src = event.target.result;
+            $(previewImage).attr('src', event.target.result);
         }
         reader.readAsDataURL(image);
     }
-});
+}
 
 $(document).ready(function() {
     
@@ -57,12 +67,13 @@ $(document).ready(function() {
         if(slug){
             $.ajax({
                 type:"GET",
-                url: "/vendor/shop/verifySlug?slug=" + slug,
+                url: "/vendor/myShop/verifySlug?slug=" + slug,
                 dataType: "json",
                 success: function(data) {
                     if(data.success) {
                         shopSlug.removeClass('border-danger');
                         shopSlug.addClass('border-success');
+                        $('#slugError').empty();
                     } else {
                         shopSlug.removeClass('border-success');
                         shopSlug.addClass('border-danger');
