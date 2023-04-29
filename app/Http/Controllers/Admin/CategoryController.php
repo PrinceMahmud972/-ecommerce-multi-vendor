@@ -12,7 +12,7 @@ class CategoryController extends Controller
 {
 
     public function index() {
-        $categories = Category::all();
+        $categories = Category::with('section')->get();
         return view('admin.category.index', compact('categories'));
     }
 
@@ -66,13 +66,18 @@ class CategoryController extends Controller
         return redirect()->route('admin.category.index');
     }
 
+    public function getCategoryAjax($id) {
+        $categories = Category::where('section_id', $id)->get();
+        return json_encode($categories);
+    }
+
     public function uploadImage($image) {
         $imageName = time().rand(100,999).'.'.$image->extension();
         $image->move(public_path('admin/images/category'), $imageName);
         return $imageName;
     }
 
-    public function deleteImage($imageName) {
+    public static function deleteImage($imageName) {
         if(File::exists(public_path('admin/images/category/'.$imageName))) {
             File::delete(public_path('admin/images/category/'.$imageName));
         }

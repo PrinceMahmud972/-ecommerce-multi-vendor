@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\Admin\VendorController as AdminVendorController;
+use App\Http\Controllers\Vendor\ProductController;
 use App\Http\Controllers\Vendor\ShopController;
 use App\Http\Controllers\Vendor\VendorController;
 use Illuminate\Support\Facades\Auth;
@@ -91,5 +92,15 @@ Route::prefix('vendor')->name('vendor.')->group(function() {
         Route::get('myShop/verifySlug', [ShopController::class, 'verifySlug'])->name('shop.verifySlug');
         Route::get('myShop/edit', [ShopController::class, 'edit'])->name('shop.edit');
         Route::put('myShop', [ShopController::class, 'update'])->name('shop.update');
+
+        // Product
+        Route::get('prduct/create', [ProductController::class, 'create'])->name('product.create');
+        Route::post('prduct', [ProductController::class, 'store'])->name('product.store');
+        Route::get('product/verifySlug', [ShopController::class, 'verifySlug'])->name('product.verifySlug');
+
+
+        // Ajax
+        Route::get('category/getCategoryAjax/{id}', [CategoryController::class, 'getCategoryAjax'])->name('category.getAjax');
+
     });
 });

@@ -94,7 +94,7 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3 mb-md-0">
-                                    <input class="form-control" id="tin_number" name="tin_number" type="text" />
+                                    <input class="form-control" id="tin_number" name="tin_number" type="text" value="{{ old('tin_number') ?? $shop->tin_number }}" />
                                     <label for="tin_number">TIN (Tax Identification Number)</label>
                                 </div>
                                 @error('tin_number')
@@ -103,7 +103,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input class="form-control" id="bin_number" name="bin_number" type="text" />
+                                    <input class="form-control" id="bin_number" name="bin_number" type="text" value="{{ old('bin_number') ?? $shop->bin_number }}"/>
                                     <label for="bin_number">BIN (Business Identification Number)</label>
                                     @error('bin_number')
                                         <span class="text-danger">{{ $message }}</span>

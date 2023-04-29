@@ -19,6 +19,7 @@
                                         <tr>
                                             <td>Image</td>
                                             <td>Title</td>
+                                            <td>Section</td>
                                             <td>Action</td>
                                         </tr>
                                     </thead>
@@ -29,6 +30,7 @@
                                                     <img src="{{ url('admin/images/category/'.$category->image) }}" class="thumbnail">
                                                 </td>
                                                 <td>{{ $category->title }}</td>
+                                                <td>{{ $category->section->title }}</td>
                                                 <td>
                                                     <a href="{{ route('admin.category.edit', ['category' => $category->id]) }}" class="btn btn-primary p-2">Edit</a>
                                                     <a href="javascript:{}" onclick="document.getElementById('delete-category-{{ $category->id }}').submit();" class="btn btn-danger p-2">Delete</a>

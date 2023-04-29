@@ -56,6 +56,10 @@ class SectionController extends Controller
 
     public function destroy(Section $section) {
         $this->deleteImage($section->image);
+        foreach($section->categories as $category) {
+            CategoryController::deleteImage($category->image);
+            $category->delete();
+        } 
         $section->delete();
         return redirect()->route('admin.section.index');
     }

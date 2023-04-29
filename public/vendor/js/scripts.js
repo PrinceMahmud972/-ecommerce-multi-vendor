@@ -57,44 +57,94 @@ function imagePreview(formImage, previewImage) {
     }
 }
 
-$(document).ready(function() {
-    
-    const shopName = $('#inputShopName');
-    shopName.on('input', function() {
-        let shopSlug = $('#inputShopSlug');
-        let slug = convertToSlug(shopName.val());
-        shopSlug.val(slug);
-        if(slug){
-            $.ajax({
-                type:"GET",
-                url: "/vendor/myShop/verifySlug?slug=" + slug,
-                dataType: "json",
-                success: function(data) {
-                    if(data.success) {
-                        shopSlug.removeClass('border-danger');
-                        shopSlug.addClass('border-success');
-                        $('#slugError').empty();
-                    } else {
-                        shopSlug.removeClass('border-success');
-                        shopSlug.addClass('border-danger');
-                        $('#slugError').text('The slug already Exists');
-                    }
+
+const shopName = $('#inputShopName');
+shopName.on('input', function() {
+    let shopSlug = $('#inputShopSlug');
+    let slug = convertToSlug(shopName.val());
+    shopSlug.val(slug);
+    if(slug){
+        $.ajax({
+            type:"GET",
+            url: "/vendor/myShop/verifySlug?slug=" + slug,
+            dataType: "json",
+            success: function(data) {
+                if(data.success) {
+                    shopSlug.removeClass('border-danger');
+                    shopSlug.addClass('border-success');
+                    $('#slugError').empty();
+                } else {
+                    shopSlug.removeClass('border-success');
+                    shopSlug.addClass('border-danger');
+                    $('#slugError').text('The slug already Exists');
                 }
-            });
-        }
-        if(slug == "") {
-            shopSlug.removeClass('border-success');
-            shopSlug.removeClass('border-danger');
-        }
-    });
-
-
-
-
-
-    function convertToSlug(Text) {
-        return Text.toLowerCase()
-                   .replace(/[^\w ]+/g, '')
-                   .replace(/ +/g, '-');
+            }
+        });
+    }
+    if(slug == "") {
+        shopSlug.removeClass('border-success');
+        shopSlug.removeClass('border-danger');
     }
 });
+
+
+function convertToSlug(Text) {
+    return Text.toLowerCase()
+               .replace(/[^\w ]+/g, '')
+               .replace(/ +/g, '-');
+}
+
+function checkSlugExists(inputTitle, inputSlug, id=null) {
+    const title = $('#'+inputTitle);
+    
+    let slug = $('#'+inputSlug);
+    let convertedSlug = convertToSlug(title.val());
+    slug.val(convertedSlug);
+    if(convertedSlug){
+        $.ajax({
+            type:"GET",
+            url: "/vendor/product/verifySlug?slug=" + convertedSlug + (id != null ? ('&id='+id) : ''),
+            dataType: "json",
+            success: function(data) {
+                if(data.success) {
+                    slug.removeClass('border-danger');
+                    slug.addClass('border-success');
+                    $('#slugError').empty();
+                } else {
+                    slug.removeClass('border-success');
+                    slug.addClass('border-danger');
+                    $('#slugError').text('The slug already Exists');
+                }
+            }
+        });
+    }
+    if(convertedSlug == "") {
+        slug.removeClass('border-success');
+        slug.removeClass('border-danger');
+    }
+}
+
+function getCategories() {
+    sectionId = $('#inputSection').val();
+
+    if(sectionId) {
+        $.ajax({
+            type: "GET",
+            url: '/vendor/category/getCategoryAjax/'+sectionId,
+            dataType: 'json',
+            success: function(data) {
+                categorySelect = $('#inputCategory');
+                if(data.length) {
+                    categorySelect.empty();
+                    $.each(data, function(key, val) {
+                        categorySelect.append('<option value="'+val.id+'">'+val.title+'</option>');
+                    });
+                    categorySelect.removeAttr('disabled');
+                } else {
+                    categorySelect.empty();
+                    categorySelect.attr('disabled', true);
+                }
+            }
+        });
+    }
+}
